@@ -1,0 +1,62 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
+    <LangVersion>12.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <RootNamespace>Emissaoja</RootNamespace>
+    <AssemblyName>Emissaoja</AssemblyName>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Deterministic>true</Deterministic>
+    <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0'">
+    <IsAotCompatible>true</IsAotCompatible>
+  </PropertyGroup>
+
+  <!-- Pacote NuGet -->
+  <PropertyGroup>
+    <PackageId>Emissaoja</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>BINOBO LTDA</Authors>
+    <Company>BINOBO LTDA</Company>
+    <Product>emissaoja</Product>
+    <Copyright>Copyright (c) 2026 BINOBO LTDA</Copyright>
+    <Title>emissaoja: API de NFS-e nacional para .NET (C#)</Title>
+    <Description>Cliente oficial da API do emissaoja para .NET e C#: emitir NFS-e (nota fiscal de serviço eletrônica) no Emissor Nacional sem certificado digital, com o CNPJ e a senha do portal, para MEI e empresas do Simples Nacional. API de NFS-e nacional com tomadores, serviços, emissão com idempotência, acompanhamento do pedido, cancelamento, PDF (DANFSe) e XML, consulta de CNPJ e sandbox gratuito. Official .NET SDK for the emissaoja API: issue Brazilian NFS-e service invoices through the Emissor Nacional, no digital certificate required.</Description>
+    <PackageTags>nfse;nfs-e;nfse-nacional;emissor-nacional;nota-fiscal;nota-fiscal-servico;mei;simples-nacional;brasil;brazil;invoice</PackageTags>
+    <PackageProjectUrl>https://emissaoja.com.br/docs/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Easymovel/emissaoja-dotnet</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReleaseNotes>https://github.com/Easymovel/emissaoja-dotnet/blob/main/CHANGELOG.md</PackageReleaseNotes>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\..\icon.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <!-- No .NET 8 o System.Text.Json já vem com o runtime; no .NET Standard 2.0 é a única dependência. -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Emissaoja.Tests" />
+  </ItemGroup>
+
+</Project>

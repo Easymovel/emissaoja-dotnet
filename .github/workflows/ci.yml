@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  testes:
+    name: Testes (pacote ${{ matrix.alvo }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Os dois alvos do pacote: net8.0 (.NET 8+) e netstandard2.0 (.NET Framework 4.6.2+, .NET Core 3.1+, Mono).
+        # Os testes (net8.0) rodam contra o build de cada alvo.
+        alvo: [net8.0, netstandard2.0]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            8.0.x
+            9.0.x
+      - name: Restaurar
+        run: dotnet restore
+      - name: Compilar (aviso vira erro no pacote)
+        run: dotnet build -c Release --no-restore
+      - name: Testar
+        run: dotnet test tests/Emissaoja.Tests -c Release -p:EmissaojaTfm=${{ matrix.alvo }}
+      - name: Pacote
+        if: matrix.alvo == 'net8.0'
+        run: dotnet pack src/Emissaoja -c Release -o artifacts
+      - uses: actions/upload-artifact@v4
+        if: matrix.alvo == 'net8.0'
+        with:
+          name: pacote
+          path: artifacts/
