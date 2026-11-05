@@ -76,7 +76,7 @@ Dados de exemplo do sandbox:
 | `44444444000191` | Empresa bloqueada (não optante do Simples) |
 | qualquer um, com a senha `errada` | Senha recusada pelo portal |
 
-Tomadores de exemplo: CNPJ `12345678000195` e CPF `52998224725`. Valores com significado ao emitir: `13.13m` fica `incerta` (resolva com `Emissoes.ConferirAsync`, que leva a `autorizada`), `77.77m` fica `incerta` e não saiu, `99.99m` é recusada pelo fisco.
+Tomadores de exemplo: CNPJ `12345678000195` e CPF `52998224725`. Valores com significado ao emitir: `13.13m` fica `incerta` (resolva com `Emissoes.ConferirAsync`, que leva a `autorizada`), `77.77m` fica `incerta` e não saiu, `66.66m` é recusada pelo fisco e `99.99m` é bloqueada já na prévia (`422 nota_bloqueada`).
 
 ## Em produção
 
