@@ -47,7 +47,7 @@ public sealed class EmissaojaClient : IDisposable
     public const string VariavelChave = "EMISSAOJA_KEY";
 
     private const string UserAgent = "emissaoja-dotnet/" + Versao;
-    private const string UrlCadastro = "https://emissaoja.com.br/?origem=lib-dotnet";
+    private const string UrlCadastro = "https://emissaoja.com.br/?origem=lib-dotnet&utm_source=nuget&utm_medium=erro&utm_campaign=home";
 
     private static readonly Stopwatch Cronometro = Stopwatch.StartNew();
 
