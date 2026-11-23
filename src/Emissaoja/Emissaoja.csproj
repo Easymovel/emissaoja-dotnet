@@ -28,7 +28,7 @@
     <Title>emissaoja: API de NFS-e nacional para .NET (C#)</Title>
     <Description>Cliente oficial da API do emissaoja para .NET e C#: emitir NFS-e (nota fiscal de serviço eletrônica) no Emissor Nacional sem certificado digital, com o CNPJ e a senha do portal, para MEI e empresas do Simples Nacional. API de NFS-e nacional com tomadores, serviços, emissão com idempotência, acompanhamento do pedido, cancelamento, PDF (DANFSe) e XML, consulta de CNPJ e sandbox gratuito. Official .NET SDK for the emissaoja API: issue Brazilian NFS-e service invoices through the Emissor Nacional, no digital certificate required.</Description>
     <PackageTags>nfse;nfs-e;nfse-nacional;emissor-nacional;nota-fiscal;nota-fiscal-servico;mei;simples-nacional;brasil;brazil;invoice</PackageTags>
-    <PackageProjectUrl>https://emissaoja.com.br/docs/</PackageProjectUrl>
+    <PackageProjectUrl>https://emissaoja.com.br/docs/?origem=lib-dotnet&utm_source=nuget&utm_medium=pacote&utm_campaign=docs</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Easymovel/emissaoja-dotnet</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

@@ -3,7 +3,7 @@
 [![NuGet](https://img.shields.io/nuget/v/Emissaoja.svg)](https://www.nuget.org/packages/Emissaoja)
 [![CI](https://github.com/Easymovel/emissaoja-dotnet/actions/workflows/ci.yml/badge.svg)](https://github.com/Easymovel/emissaoja-dotnet/actions/workflows/ci.yml)
 
-Cliente oficial em C# da **API do [emissaoja](https://emissaoja.com.br)**: emita **NFS-e** (nota fiscal de serviço eletrônica) no **Emissor Nacional** a partir do seu sistema .NET, **sem certificado digital**, só com o CNPJ e a senha do portal. Feito para **MEI** e empresas do **Simples Nacional**: cadastre tomadores e serviços, emita, acompanhe o pedido, cancele e baixe o **PDF (DANFSe)** e o **XML** de cada nota.
+Cliente oficial em C# da **API do [emissaoja](https://emissaoja.com.br/?origem=lib-dotnet&utm_source=nuget&utm_medium=readme&utm_campaign=home)**: emita **NFS-e** (nota fiscal de serviço eletrônica) no **Emissor Nacional** a partir do seu sistema .NET, **sem certificado digital**, só com o CNPJ e a senha do portal. Feito para **MEI** e empresas do **Simples Nacional**: cadastre tomadores e serviços, emita, acompanhe o pedido, cancele e baixe o **PDF (DANFSe)** e o **XML** de cada nota.
 
 - .NET 8+ e .NET Standard 2.0 (.NET Framework 4.6.2+, .NET Core 3.1+). Sem dependências no .NET 8; no .NET Standard 2.0, só `System.Text.Json`.
 - Modelos tipados (`Pedido`, `Tomador`, `Servico`, `Nota`...), com JSON gerado em compilação: compatível com trimming e Native AOT.
@@ -18,7 +18,7 @@ Cliente oficial em C# da **API do [emissaoja](https://emissaoja.com.br)**: emita
 dotnet add package Emissaoja
 ```
 
-[Crie a conta no emissaoja](https://emissaoja.com.br/?origem=lib-dotnet) (entre com a conta Google em [emissaoja.com.br/app](https://emissaoja.com.br/app)), aceite os termos e crie a chave em **Conta → API**. A chave aparece uma vez (prefixo `ej_live_`): guarde-a fora do código, por exemplo na variável de ambiente `EMISSAOJA_KEY` ou no `dotnet user-secrets`.
+[Crie a conta no emissaoja](https://emissaoja.com.br/?origem=lib-dotnet&utm_source=nuget&utm_medium=readme&utm_campaign=home) (entre com a conta Google em [emissaoja.com.br/app](https://emissaoja.com.br/app?origem=lib-dotnet&utm_source=nuget&utm_medium=readme&utm_campaign=app)), aceite os termos e crie a chave em **Conta → API**. A chave aparece uma vez (prefixo `ej_live_`): guarde-a fora do código, por exemplo na variável de ambiente `EMISSAOJA_KEY` ou no `dotnet user-secrets`.
 
 ## Teste no sandbox em 2 minutos
 
@@ -276,7 +276,7 @@ catch (EmissaojaException e)
 | `validation_error`, `valor_invalido`, `tomador_obrigatorio`, `cnpj_invalido` | 400 | Corrija o campo; `e.Extras["details"]` diz qual. |
 | `chave_idempotencia_invalida` | 0 | A referência precisa de 8 a 64 caracteres: letras, números, `_` e `-`. |
 | `nota_bloqueada` | 422 | Resolva os itens de `e.Bloqueios` (cadastro, alíquota, código municipal) e emita de novo. |
-| `limite_notas` | 402 | Limite do plano no mês. Planos em [emissaoja.com.br/#precos](https://emissaoja.com.br/#precos). |
+| `limite_notas` | 402 | Limite do plano no mês. Planos em [emissaoja.com.br/#precos](https://emissaoja.com.br/?origem=lib-dotnet&utm_source=nuget&utm_medium=readme&utm_campaign=precos#precos). |
 | `possivel_duplicada` | 409 | Nota igual hoje. Se for mesmo outra, repita com `PermitirRepetidaDe` (veja abaixo). |
 | `emissao_repetida_recente` | 409 | A mesma nota há menos de 2 minutos. Se for mesmo outra, repita com `ConfirmoRepeticao = true`. |
 | `incerta_pendente` | 409 | Há um pedido incerto igual: confira com `Emissoes.ConferirAsync(e.PedidoId)` antes. |
@@ -321,13 +321,13 @@ catch (EmissaojaException e) when (e.Code == "possivel_duplicada" && e.NotaIgual
 
 **Tem ambiente de testes?** Sim: `https://sandbox.emissaoja.com.br` (`EmissaojaClient.BaseUrlSandbox`), grátis, com o Emissor Nacional simulado e chaves `ej_test_`. Nada vai ao fisco.
 
-**Quanto custa?** O plano Grátis tem 1 nota por mês; a nota conta quando o Emissor Nacional aceita o pedido (recusada não conta). Os outros planos estão em [emissaoja.com.br/#precos](https://emissaoja.com.br/#precos).
+**Quanto custa?** O plano Grátis tem 1 nota por mês; a nota conta quando o Emissor Nacional aceita o pedido (recusada não conta). Os outros planos estão em [emissaoja.com.br/#precos](https://emissaoja.com.br/?origem=lib-dotnet&utm_source=nuget&utm_medium=readme&utm_campaign=precos#precos).
 
 **Tem webhook?** Ainda não. Acompanhe o pedido com `Notas.AguardarAsync`, que segue o `proxima_consulta_ms` da API.
 
 ## Links
 
-- Documentação: [emissaoja.com.br/docs](https://emissaoja.com.br/docs/) (em Markdown: [docs.md](https://emissaoja.com.br/docs.md))
+- Documentação: [emissaoja.com.br/docs](https://emissaoja.com.br/docs/?origem=lib-dotnet&utm_source=nuget&utm_medium=readme&utm_campaign=docs) (em Markdown: [docs.md](https://emissaoja.com.br/docs.md))
 - OpenAPI 3.1: [emissaoja.com.br/v1/openapi.json](https://emissaoja.com.br/v1/openapi.json)
 - Para IAs: [emissaoja.com.br/llms.txt](https://emissaoja.com.br/llms.txt) · MCP: `https://emissaoja.com.br/mcp`
 - Status: [emissaoja.com.br/v1/status](https://emissaoja.com.br/v1/status) · Suporte: [suporte@emissaoja.com.br](mailto:suporte@emissaoja.com.br)
@@ -336,7 +336,7 @@ catch (EmissaojaException e) when (e.Code == "possivel_duplicada" && e.NotaIgual
 
 ## In English
 
-The `Emissaoja` NuGet package is the official .NET (C#) SDK for [emissaoja](https://emissaoja.com.br/?origem=lib-dotnet), a Brazilian **NFS-e (service invoice) API** that issues invoices through the national issuer (Emissor Nacional) with the company's CNPJ and portal password, **no digital certificate required**. Built for MEI and Simples Nacional companies: customers, services, idempotent issuing, status polling, cancellation, PDF (DANFSe) and XML. Targets .NET 8+ and .NET Standard 2.0; method names are in Portuguese, matching the API. Try it for free in the sandbox (`EmissaojaClient.BaseUrlSandbox`); docs at [emissaoja.com.br/docs](https://emissaoja.com.br/docs/).
+The `Emissaoja` NuGet package is the official .NET (C#) SDK for [emissaoja](https://emissaoja.com.br/?origem=lib-dotnet&utm_source=nuget&utm_medium=readme&utm_campaign=home), a Brazilian **NFS-e (service invoice) API** that issues invoices through the national issuer (Emissor Nacional) with the company's CNPJ and portal password, **no digital certificate required**. Built for MEI and Simples Nacional companies: customers, services, idempotent issuing, status polling, cancellation, PDF (DANFSe) and XML. Targets .NET 8+ and .NET Standard 2.0; method names are in Portuguese, matching the API. Try it for free in the sandbox (`EmissaojaClient.BaseUrlSandbox`); docs at [emissaoja.com.br/docs](https://emissaoja.com.br/docs/?origem=lib-dotnet&utm_source=nuget&utm_medium=readme&utm_campaign=docs).
 
 ## Licença
 
